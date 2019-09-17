@@ -1,0 +1,40 @@
+{
+  "name": "jsx-layout",
+  "version": "0.0.1",
+  "description": "JSX transform for layout",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test:lint && tape test.js | tap-difflet",
+    "test:lint": "eslint index.js test.js",
+    "test:unit:watch": "nodemon tape test.js | tap-difflet"
+  },
+  "author": "Max Harris <harris.max@gmail.com>",
+  "license": "MIT",
+  "prettier": {
+    "jsxSingleQuote": true,
+    "singleQuote": true,
+    "semi": true,
+    "bracketSpacing": false,
+    "endOfLine": "lf"
+  },
+  "dependencies": {
+    "astring": "^1.4.2"
+  },
+  "devDependencies": {
+    "tap-difflet": "^0.7.2",
+    "tape": "^4.11.0",
+    "nodemon": "^1.19.2"
+  },
+  "peerDependencies": {
+    "acorn-jsx": "^5.0.2",
+    "acorn": "^7.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maxharris9/jsx-layout.git"
+  },
+  "bugs": {
+    "url": "https://github.com/maxharris9/jsx-layout/issues"
+  },
+  "homepage": "https://github.com/maxharris9/jsx-layout#readme"
+}
