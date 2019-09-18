@@ -8,7 +8,7 @@ const generator = Object.assign({}, astring.baseGenerator, {
   },
   JSXElement: function(node, state) {
     // <div></div>
-    state.write('c(new ');
+    state.write('c(');
     this[node.openingElement.type](node.openingElement, state);
     state.write(' }');
     if (node.children.length > 0) {
@@ -26,7 +26,7 @@ const generator = Object.assign({}, astring.baseGenerator, {
   JSXOpeningElement: function(node, state) {
     // <div>
     this[node.name.type](node.name, state);
-    state.write('(), {');
+    state.write(', {');
     for (let i = 0; i < node.attributes.length; i++) {
       const attr = node.attributes[i];
 
