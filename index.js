@@ -10,7 +10,6 @@ const generator = Object.assign({}, astring.baseGenerator, {
     // <div></div>
     state.write('c(');
     this[node.openingElement.type](node.openingElement, state);
-    state.write(' }');
     if (node.children.length > 0) {
       state.write(',');
     }
@@ -26,15 +25,16 @@ const generator = Object.assign({}, astring.baseGenerator, {
   JSXOpeningElement: function(node, state) {
     // <div>
     this[node.name.type](node.name, state);
-    state.write(', {');
+    state.write(', { ');
     for (let i = 0; i < node.attributes.length; i++) {
       const attr = node.attributes[i];
 
       this[attr.type](attr, state);
       if (i < node.attributes.length - 1) {
-        state.write(',');
+        state.write(', ');
       }
     }
+    state.write(' }');
   },
   JSXClosingElement: function() {
     // </div>
@@ -50,7 +50,6 @@ const generator = Object.assign({}, astring.baseGenerator, {
     this[node.property.type](node.property, state);
   },
   JSXAttribute: function(node, state) {
-    state.write(' ');
     this[node.name.type](node.name, state);
     state.write(': ');
     this[node.value.type](node.value, state);
