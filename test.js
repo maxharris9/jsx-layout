@@ -50,3 +50,34 @@ tape.test('two children', t => {
   t.end();
 });
 
+tape.test('map', t => {
+  const input = `const instance = <FlowBox
+              sizingHorizontal={'shrink'}
+              sizingVertical={'shrink'}
+              alignHorizontal={'left'}
+              alignVertical={'center'}
+              stackChildren={'vertical'}
+            >
+            {
+              options.map(option => (
+                <Label
+                  font={'SourceSansPro-Regular'}
+                  color={'black'}
+                  size={15}
+                  text={option}
+                  sizeMode={'capHeight'}
+                  showBoxes={false}
+                  onClick={() => selectPropOption(key, option)}
+                />)
+              )
+            }
+            </FlowBox>`;
+  const expected = `const instance = c(FlowBox, { sizingHorizontal: 'shrink', sizingVertical: 'shrink', alignHorizontal: 'left', alignVertical: 'center', stackChildren: 'vertical' }
+            ,options.map(option => c(Label, { font: 'SourceSansPro-Regular', color: 'black', size: 15, text: option, sizeMode: 'capHeight', showBoxes: false, onClick: () => selectPropOption(key, option) }))
+            );
+`;
+  const ast = acorn.Parser.extend(jsx()).parse(input);
+  const actual = astring(ast, {indent: '  '});
+  t.equals(actual, expected);
+  t.end();
+});
