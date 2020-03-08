@@ -10,11 +10,14 @@ const generator = Object.assign({}, astring.baseGenerator, {
     // <div></div>
     state.write('c(');
     this[node.openingElement.type](node.openingElement, state);
-    if (node.children.length > 0) {
-      state.write(',');
-    }
     if (node.closingElement) {
       for (let i = 0; i < node.children.length; i++) {
+        if (node.children.length > 0) {
+          if (node.children[i].type !== 'JSXText') {
+            // without this check, whitespace will be interpreted as a JSXText node and cause extra commas to appear in the output
+            state.write(',');
+          }
+        }
         const child = node.children[i];
         this[child.type](child, state);
       }

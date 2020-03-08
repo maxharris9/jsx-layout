@@ -40,3 +40,13 @@ tape.test('no children, inside ES6 class', t => {
   t.equals(actual, expected);
   t.end();
 });
+
+tape.test('two children', t => {
+  const input = `const someVar = 2;\nconst instance = <SpacedLine someProp={'hello'} anotherProp={someVar}><Label text={'this is a label'} />\n<Label text={'this is another label'} /></SpacedLine>;`;
+  const expected = `const someVar = 2;\nconst instance = c(SpacedLine, { someProp: 'hello', anotherProp: someVar },c(Label, { text: 'this is a label' })\n,c(Label, { text: 'this is another label' }));\n`;
+  const ast = acorn.Parser.extend(jsx()).parse(input);
+  const actual = astring(ast, {indent: '  '});
+  t.equals(actual, expected);
+  t.end();
+});
+
